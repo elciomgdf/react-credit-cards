@@ -11,13 +11,14 @@ module.exports = yargs
     command: 'build-styles',
     desc: 'build styles before publishing',
     handler: () => {
-      run('rm -rf .tmp/')
+      run('rimraf .tmp/')
         .then(() => run('node-sass -o .tmp/ src/styles.scss'))
         .then(() => run('postcss .tmp/styles.css --use autoprefixer --no-map -d .tmp/'))
-        .then(() => run('mv .tmp/styles.css .tmp/styles-compiled.css'))
-        .then(() => run('mkdir -p es lib'))
-        .then(() => run('cp .tmp/styles-compiled.css es/ && cp .tmp/styles-compiled.css lib/'))
-        .then(() => run('cp src/styles.scss es/ && cp src/styles.scss lib/'))
+        .then(() => run('cpx .tmp/styles.css .tmp/styles-compiled.css'))
+        .then(() => run('mkdirp es lib'))
+        .then(() => run('cpx .tmp/styles-compiled.css es/ && cpx .tmp/styles-compiled.css lib/'))
+        .then(() => run('cpx .tmp/styles.css es/ && cpx .tmp/styles.css lib/'))
+        .then(() => run('cpx src/styles.scss es/ && cpx src/styles.scss lib/'))
         .then(() => console.log(chalk.green('✔ Styles have been build')))
         .catch(err => {
           throw new Error(err);

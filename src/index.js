@@ -46,10 +46,10 @@ class ReactCreditCards extends React.Component {
   static defaultProps = {
     acceptedCards: [],
     locale: {
-      valid: 'valid thru',
+      valid: 'VALID THRU',
     },
     placeholders: {
-      name: 'YOUR NAME HERE',
+      name: 'SEU NOME AQUI',
     },
     preview: false,
   };
